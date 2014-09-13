@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongo = require('mongoskin');
+var db = mongo.db("mongodb://localhost:27017/greenhouse", {native_parser:true})
+
 var routes = require('./routes/index');
 
 var app = express();
