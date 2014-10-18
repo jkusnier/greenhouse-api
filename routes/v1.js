@@ -1,21 +1,28 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/temperature', function(req, res) {
-  var db = req.db;
-
+router.get('/devices/:device_id/environment', function (req, res) {
+    var db = req.db;
+    db.collection('environment').findOne({coreid: req.params.device_id}, {sort: {created_on: -1}}, function (err, result) {
+        res.json(result);
+    });
 });
 
-router.get('/humidity', function(req, res) {
-  var db = req.db;
-
+router.get('/devices', function (req, res) {
+    var db = req.db;
+    db.collection('devices').find().toArray(function (err, items) {
+        res.json(items);
+    });
 });
 
-router.post('/data', function(req, res) {
-//	console.log(req);
-//	console.log(res);
+//router.get('/humidity', function (req, res) {
+//    var db = req.db;
+//
+//});
 
-	res.status(200).send("OK");
-});
+// Not yet
+//router.post('/data', function (req, res) {
+//    res.status(200).send("OK");
+//});
 
 module.exports = router;
