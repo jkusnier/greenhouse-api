@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+router.use(function(req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+
 router.get('/devices/:device_id/environment', function (req, res) {
     var db = req.db;
     db.collection('environment').findOne({coreid: req.params.device_id}, {sort: {created_on: -1}}, function (err, result) {
