@@ -22,8 +22,8 @@ router.get('/devices', function (req, res) {
 
 router.get('/devices/:device_id/last_day', function (req, res) {
     var db = req.db;
-    db.collection('last_day').findOne({coreid: req.params.device_id}, {sort: {byMinute: 1}}, function (err, result) {
-        res.json(result);
+    db.collection('last_day').find({coreid: req.params.device_id}, {sort: {created_on: 1}}).toArray(function (err, items) {
+        res.json(items);
     });
 });
 
