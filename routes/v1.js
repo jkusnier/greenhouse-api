@@ -20,9 +20,9 @@ router.get('/devices', function (req, res) {
     });
 });
 
-router.get('/devices/:device_id/last_day', function (req, res) {
+router.get('/devices/:device_id/data/fahrenheit', function (req, res) {
     var db = req.db;
-    db.collection('last_day').find({coreid: req.params.device_id}, {sort: {created_on: 1}}).toArray(function (err, items) {
+    db.collection('data_fahrenheit').find({coreid: req.params.device_id}, {sort: {time: 1}}).toArray(function (err, items) {
         res.json(items);
     });
 });
