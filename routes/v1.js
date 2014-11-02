@@ -27,6 +27,13 @@ router.get('/devices/:device_id/data/fahrenheit', function (req, res) {
     });
 });
 
+router.get('/devices/:device_id/hist/fahrenheit', function (req, res) {
+    var db = req.db;
+    db.collection('hist_fahrenheit').find({coreid: req.params.device_id}, {sort: {time: 1}}).toArray(function (err, items) {
+        res.json(items);
+    });
+});
+
 //router.get('/humidity', function (req, res) {
 //    var db = req.db;
 //
