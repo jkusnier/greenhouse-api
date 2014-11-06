@@ -72,6 +72,10 @@ var splitKey = {
 
 db.temp_data_fahrenheit.aggregate([splitKey, {$out: "data_fahrenheit"}])
 
+db.data_fahrenheit.find().forEach(function(doc) {
+  db.data_fahrenheit.update({_id:doc._id}, {$set: {time: ISODate(doc.time)}})
+})
+
 db.data_fahrenheit.ensureIndex({coreid: 1})
 
 db.temp_data_fahrenheit.drop()
