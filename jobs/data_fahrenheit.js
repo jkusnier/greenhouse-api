@@ -13,7 +13,7 @@ var lastMaxTime = db.hist_fahrenheit.aggregate(
    ]
 )
 
-var matchPart = {$match: {"created_on": {$gte: ISODate(lastMaxTime.toArray()[0].maxTime)}}}
+var matchPart = {$match: {"created_on": {$gte: lastMaxTime.toArray()[0].maxTime}}}
 
 var projectParts = {
   $project: {
