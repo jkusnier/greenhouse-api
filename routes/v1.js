@@ -43,6 +43,14 @@ router.get('/devices/:device_id/hist/fahrenheit/all', function (req, res) {
     });
 });
 
+router.get('/weather/:station_id/fahrenheit', function (req, res) {
+    var db = req.db;
+    var startDate = moment().subtract(14, 'days').startOf('day');
+    db.collection('wunderground_aggregate').find({station_id: req.params.station_id}, {sort: {time: 1}}).toArray(function (err, items) {
+        res.json(items);
+    });
+});
+
 //router.get('/humidity', function (req, res) {
 //    var db = req.db;
 //
