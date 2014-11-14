@@ -16,7 +16,14 @@ router.get('/devices/:device_id/environment', function (req, res) {
 
 router.get('/devices', function (req, res) {
     var db = req.db;
-    db.collection('devices').find().toArray(function (err, items) {
+    db.collection('devices').find().sort('description').toArray(function (err, items) {
+        res.json(items);
+    });
+});
+
+router.get('/devices/:device_id', function (req, res) {
+    var db = req.db;
+    db.collection('devices').findOne({coreid: req.params.device_id}, function (err, items) {
         res.json(items);
     });
 });
